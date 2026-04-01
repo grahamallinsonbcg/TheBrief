@@ -2,5 +2,146 @@
   "slug": "2026-04-01-wed",
   "date": "2026-04-01",
   "type": "edition",
-  "streams": {}
+  "streams": {
+    "model-releases": {
+      "name": "Model Releases & Benchmarks",
+      "commentary": "Model Releases & Benchmarks contains 4 tracked update(s) in this edition.",
+      "items": [
+        {
+          "id": "36b87804a01a2d4520dc2f0475b4ce0aae16989d6541e7a5be50bb8ff3895a9f",
+          "title": "OpenAI news and release highlights",
+          "url": "https://openai.com/news/",
+          "source": "OpenAI",
+          "date": "2026-04-01",
+          "summary": "Track notable OpenAI model and product release announcements for this edition."
+        },
+        {
+          "id": "f6aa679babd7a46ab86e2b4ffd82304ea8316bbfc99227de705e29fe05500181",
+          "title": "Anthropic product and research updates",
+          "url": "https://www.anthropic.com/news",
+          "source": "Anthropic",
+          "date": "2026-04-01",
+          "summary": "Capture recent Claude model updates, API capabilities, and safety-related research notes."
+        },
+        {
+          "id": "d8b7c1c3683053f722513bf1cf91f59f3e89ff7dc99cd486217a51d33bf9d180",
+          "title": "Mistral company news",
+          "url": "https://mistral.ai/news/",
+          "source": "Mistral",
+          "date": "2026-04-01",
+          "summary": "Watch for new model drops, enterprise announcements, and capability improvements."
+        },
+        {
+          "id": "f87eff4db9a7ed4b8869ff8fddb4b13e1908e0670c266fe685e1ec02c2f362dc",
+          "title": "xAI blog updates",
+          "url": "https://x.ai/blog",
+          "source": "xAI",
+          "date": "2026-04-01",
+          "summary": "Collect updates on xAI model releases and product ecosystem changes."
+        }
+      ]
+    },
+    "research-papers": {
+      "name": "Research Papers",
+      "commentary": "Research Papers contains 2 tracked update(s) in this edition.",
+      "items": [
+        {
+          "id": "d451b68232884e882715ed8738c70a583bc988990966a4702132bfaadba59884",
+          "title": "Google DeepMind research blog updates",
+          "url": "https://deepmind.google/discover/blog/",
+          "source": "Google DeepMind",
+          "date": "2026-04-01",
+          "summary": "Monitor frontier research announcements, benchmarks, and major paper-linked posts."
+        },
+        {
+          "id": "191cc99ce0bbb92f58b8dd6973ff8eb0674a8f62d3b129224d5f17344fdb1007",
+          "title": "Meta AI research and model notes",
+          "url": "https://ai.meta.com/blog/",
+          "source": "Meta AI",
+          "date": "2026-04-01",
+          "summary": "Track open-source model releases, evaluation updates, and applied research writeups."
+        }
+      ]
+    },
+    "ai-tools-products": {
+      "name": "AI Tools & Products",
+      "commentary": "AI Tools & Products contains 1 tracked update(s) in this edition.",
+      "items": [
+        {
+          "id": "7f259f01ef3aa6260e10ba6d260a7b8584371372510207b65e2aa533ea509503",
+          "title": "ElevenLabs product blog",
+          "url": "https://elevenlabs.io/blog",
+          "source": "ElevenLabs",
+          "date": "2026-04-01",
+          "summary": "Track voice AI releases and notable product ecosystem updates."
+        }
+      ]
+    },
+    "scaled-ai-use-cases": {
+      "name": "Case Studies: Scaled AI Use Cases",
+      "commentary": "Case Studies: Scaled AI Use Cases contains 3 tracked update(s) in this edition.",
+      "items": [
+        {
+          "id": "c6b8a33e7fa162cc41136fa5451d6b35921effbf1aede2ada965955f4ec94d6d",
+          "title": "Cohere product and enterprise case updates",
+          "url": "https://cohere.com/blog",
+          "source": "Cohere",
+          "date": "2026-04-01",
+          "summary": "Focus on enterprise deployment case studies and model/product updates."
+        },
+        {
+          "id": "43a3d4879ec793a4c20ba7fde7c0e28007ff6c5d09a649e2579d2bc618e5ebb4",
+          "title": "Exponential View strategic AI analysis",
+          "url": "https://www.exponentialview.co/",
+          "source": "Azeem Azhar / Exponential View",
+          "date": "2026-04-01",
+          "summary": "Capture strategic context pieces that connect AI technical shifts to market impact."
+        },
+        {
+          "id": "2421248f22359cfe93c77f16aae7be8e586a436e31cbd2295108cd44ad1f5d0a",
+          "title": "One Useful Thing practitioner perspective",
+          "url": "https://www.oneusefulthing.org/",
+          "source": "Ethan Mollick / One Useful Thing",
+          "date": "2026-04-01",
+          "summary": "Track practical AI usage insights and examples of scaled real-world adoption."
+        }
+      ]
+    },
+    "data-analytics-agents": {
+      "name": "Data & Analytics Agents",
+      "commentary": "Data & Analytics Agents contains 1 tracked update(s) in this edition.",
+      "items": [
+        {
+          "id": "c242ffb14b5012160b76b555924312d0296967fb42cd4ee3b0cec5909e96cb3e",
+          "title": "Eugene Yan on data products and agents",
+          "url": "https://eugeneyan.com/",
+          "source": "Eugene Yan",
+          "date": "2026-04-01",
+          "summary": "Track analytics-agent use cases, product analytics strategy, and ML product lessons."
+        }
+      ]
+    },
+    "context-data-prep": {
+      "name": "Context & Data Preparation for AI",
+      "commentary": "Context & Data Preparation for AI contains 2 tracked update(s) in this edition.",
+      "items": [
+        {
+          "id": "8b0eaafedc559312fb655fc650829c4dbf3584f41bdd839cf9933237db3a7922",
+          "title": "Simon Willison on LLM tooling and context",
+          "url": "https://simonwillison.net/",
+          "source": "Simon Willison",
+          "date": "2026-04-01",
+          "summary": "Collect technical notes on prompt engineering, context handling, and tool ecosystems."
+        },
+        {
+          "id": "b2c7a1454a8ac1d41c15b133cdef1aa42d656f078352fa255c1357ee6b1ac437",
+          "title": "Chip Huyen on data and ML systems",
+          "url": "https://huyenchip.com/",
+          "source": "Chip Huyen",
+          "date": "2026-04-01",
+          "summary": "Capture writing on data pipelines, model serving, and practical ML architecture."
+        }
+      ]
+    }
+  }
 }
