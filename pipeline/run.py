@@ -2,9 +2,10 @@ import click
 import json
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 from build_edition import build_edition
-from ingest import ingest_items
+from ingest import canonicalize_url, ingest_items
 from process import process_items
 
 DAY_TO_NAME = {
@@ -49,6 +50,32 @@ def _update_manifest(manifest_path: Path, slug: str, day: str, date_value: str) 
     _write_json(manifest_path, manifest)
 
 
+def _load_seen_urls(output_path: Path, current_slug: str) -> set[str]:
+    seen: set[str] = set()
+    if not output_path.exists():
+        return seen
+
+    for file_path in output_path.glob("*.json"):
+        if file_path.name == "index.json" or file_path.stem == current_slug:
+            continue
+        try:
+            with open(file_path, "r", encoding="utf-8") as file:
+                payload: dict[str, Any] = json.load(file)
+        except (json.JSONDecodeError, OSError):
+            continue
+        streams = payload.get("streams", {})
+        if not isinstance(streams, dict):
+            continue
+        for stream in streams.values():
+            if not isinstance(stream, dict):
+                continue
+            for item in stream.get("items", []):
+                url = item.get("url")
+                if isinstance(url, str) and url.strip():
+                    seen.add(canonicalize_url(url))
+    return seen
+
+
 @click.command()
 @click.option("--day", type=click.Choice(["mon", "wed", "fri", "sun"]), required=True)
 @click.option(
@@ -57,17 +84,34 @@ def _update_manifest(manifest_path: Path, slug: str, day: str, date_value: str) 
     show_default=True,
     help="Directory where edition JSON and manifest are written.",
 )
-def main(day: str, output_dir: str) -> None:
+@click.option(
+    "--skip-empty",
+    is_flag=True,
+    default=False,
+    help="Do not write a new edition file when there are no net-new items.",
+)
+def main(day: str, output_dir: str, skip_empty: bool) -> None:
     slug = _slug_for(day)
     date_value = slug[:10]
+    output_path = Path(output_dir)
+    seen_urls = _load_seen_urls(output_path, slug)
 
     items = ingest_items()
-    print(f"Ingest complete for {day}. Collected {len(items)} normalized item(s).")
+    new_items = [item for item in items if canonicalize_url(item["url"]) not in seen_urls]
+    print(
+        "Ingest stats "
+        f"(day={day}): ingested={len(items)}, seen={len(seen_urls)}, new={len(new_items)}"
+    )
 
-    processed = process_items(items)
+    if not new_items and skip_empty:
+        print("No net-new items found. Skipping edition write because --skip-empty was set.")
+        return
+
+    processed = process_items(new_items)
     edition = build_edition(slug=slug, day=day, processed=processed, run_date=date_value)
+    if not new_items:
+        edition["note"] = "No net-new items were discovered for this run."
 
-    output_path = Path(output_dir)
     edition_path = output_path / f"{slug}.json"
     manifest_path = output_path / "index.json"
     _write_json(edition_path, edition)

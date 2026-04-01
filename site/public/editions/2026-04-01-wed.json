@@ -5,61 +5,45 @@
   "streams": {
     "model-releases": {
       "name": "Model Releases & Benchmarks",
-      "commentary": "Model Releases & Benchmarks contains 4 tracked update(s) in this edition.",
+      "commentary": "Model Releases & Benchmarks contains 3 tracked update(s) in this edition.",
       "items": [
         {
-          "id": "36b87804a01a2d4520dc2f0475b4ce0aae16989d6541e7a5be50bb8ff3895a9f",
-          "title": "OpenAI news and release highlights",
-          "url": "https://openai.com/news/",
+          "id": "031c86eaad2b766793d45a767ee43fd583586581a31e2b53d5a9ba3b78e647e8",
+          "title": "OpenAI introduces GPT-4o mini",
+          "url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence",
           "source": "OpenAI",
           "date": "2026-04-01",
-          "summary": "Track notable OpenAI model and product release announcements for this edition."
+          "summary": "Model release update focused on capability and cost improvements for practical deployment."
         },
         {
-          "id": "f6aa679babd7a46ab86e2b4ffd82304ea8316bbfc99227de705e29fe05500181",
-          "title": "Anthropic product and research updates",
-          "url": "https://www.anthropic.com/news",
+          "id": "e91e6f80eaaceb584f2332495ca16ab2902c8d464dba8ec097851744dfe1e764",
+          "title": "Anthropic introduces Claude 3.5 Sonnet",
+          "url": "https://www.anthropic.com/news/claude-3-5-sonnet",
           "source": "Anthropic",
           "date": "2026-04-01",
-          "summary": "Capture recent Claude model updates, API capabilities, and safety-related research notes."
+          "summary": "Frontier model update covering benchmark movement and enterprise usage implications."
         },
         {
-          "id": "d8b7c1c3683053f722513bf1cf91f59f3e89ff7dc99cd486217a51d33bf9d180",
-          "title": "Mistral company news",
-          "url": "https://mistral.ai/news/",
-          "source": "Mistral",
-          "date": "2026-04-01",
-          "summary": "Watch for new model drops, enterprise announcements, and capability improvements."
-        },
-        {
-          "id": "f87eff4db9a7ed4b8869ff8fddb4b13e1908e0670c266fe685e1ec02c2f362dc",
-          "title": "xAI blog updates",
-          "url": "https://x.ai/blog",
+          "id": "6d661d2cd4ed4d94a9f4c688eb83a62fd85d59f308399b97e59bb041b86949e6",
+          "title": "xAI Grok model release notes",
+          "url": "https://x.ai/blog/grok-2",
           "source": "xAI",
           "date": "2026-04-01",
-          "summary": "Collect updates on xAI model releases and product ecosystem changes."
+          "summary": "Release update summarizing model capability changes and product integration direction."
         }
       ]
     },
     "research-papers": {
       "name": "Research Papers",
-      "commentary": "Research Papers contains 2 tracked update(s) in this edition.",
+      "commentary": "Research Papers contains 1 tracked update(s) in this edition.",
       "items": [
         {
-          "id": "d451b68232884e882715ed8738c70a583bc988990966a4702132bfaadba59884",
-          "title": "Google DeepMind research blog updates",
-          "url": "https://deepmind.google/discover/blog/",
+          "id": "056592a02dcf2fa87b205a7a1417cc499fc8a4d6da2ca9f6430b635bdba25f91",
+          "title": "DeepMind Gemini 1.5 model update",
+          "url": "https://deepmind.google/discover/blog/gemini-1-5-pro",
           "source": "Google DeepMind",
           "date": "2026-04-01",
-          "summary": "Monitor frontier research announcements, benchmarks, and major paper-linked posts."
-        },
-        {
-          "id": "191cc99ce0bbb92f58b8dd6973ff8eb0674a8f62d3b129224d5f17344fdb1007",
-          "title": "Meta AI research and model notes",
-          "url": "https://ai.meta.com/blog/",
-          "source": "Meta AI",
-          "date": "2026-04-01",
-          "summary": "Track open-source model releases, evaluation updates, and applied research writeups."
+          "summary": "Technical model-release post with long-context capabilities and eval references."
         }
       ]
     },
@@ -68,42 +52,26 @@
       "commentary": "AI Tools & Products contains 1 tracked update(s) in this edition.",
       "items": [
         {
-          "id": "7f259f01ef3aa6260e10ba6d260a7b8584371372510207b65e2aa533ea509503",
-          "title": "ElevenLabs product blog",
-          "url": "https://elevenlabs.io/blog",
+          "id": "b4b2b77655a3ff8016dc50a7bbc01cf8c1b916d9e1d717eb85b3e68e6e3d1b78",
+          "title": "ElevenLabs voice product release",
+          "url": "https://elevenlabs.io/blog/eleven-v3-alpha",
           "source": "ElevenLabs",
           "date": "2026-04-01",
-          "summary": "Track voice AI releases and notable product ecosystem updates."
+          "summary": "Product release note for voice generation improvements and developer-facing capabilities."
         }
       ]
     },
     "scaled-ai-use-cases": {
       "name": "Case Studies: Scaled AI Use Cases",
-      "commentary": "Case Studies: Scaled AI Use Cases contains 3 tracked update(s) in this edition.",
+      "commentary": "Case Studies: Scaled AI Use Cases contains 1 tracked update(s) in this edition.",
       "items": [
         {
-          "id": "c6b8a33e7fa162cc41136fa5451d6b35921effbf1aede2ada965955f4ec94d6d",
-          "title": "Cohere product and enterprise case updates",
-          "url": "https://cohere.com/blog",
+          "id": "77e35e5f22be4a145b590c5fceed0e67438a0c127e6ed7c76e98291ddafaef1d",
+          "title": "Cohere enterprise AI deployment patterns",
+          "url": "https://cohere.com/blog/command-r",
           "source": "Cohere",
           "date": "2026-04-01",
-          "summary": "Focus on enterprise deployment case studies and model/product updates."
-        },
-        {
-          "id": "43a3d4879ec793a4c20ba7fde7c0e28007ff6c5d09a649e2579d2bc618e5ebb4",
-          "title": "Exponential View strategic AI analysis",
-          "url": "https://www.exponentialview.co/",
-          "source": "Azeem Azhar / Exponential View",
-          "date": "2026-04-01",
-          "summary": "Capture strategic context pieces that connect AI technical shifts to market impact."
-        },
-        {
-          "id": "2421248f22359cfe93c77f16aae7be8e586a436e31cbd2295108cd44ad1f5d0a",
-          "title": "One Useful Thing practitioner perspective",
-          "url": "https://www.oneusefulthing.org/",
-          "source": "Ethan Mollick / One Useful Thing",
-          "date": "2026-04-01",
-          "summary": "Track practical AI usage insights and examples of scaled real-world adoption."
+          "summary": "Enterprise-focused writeup on model utility, retrieval workflows, and production adoption."
         }
       ]
     },
@@ -112,34 +80,26 @@
       "commentary": "Data & Analytics Agents contains 1 tracked update(s) in this edition.",
       "items": [
         {
-          "id": "c242ffb14b5012160b76b555924312d0296967fb42cd4ee3b0cec5909e96cb3e",
-          "title": "Eugene Yan on data products and agents",
-          "url": "https://eugeneyan.com/",
+          "id": "ade5ef8d767f301fddf28c129ffecb9fea2c81925a626e1d85068905e2e4a4ad",
+          "title": "Eugene Yan on LLM evaluators",
+          "url": "https://eugeneyan.com/writing/llm-evaluators",
           "source": "Eugene Yan",
           "date": "2026-04-01",
-          "summary": "Track analytics-agent use cases, product analytics strategy, and ML product lessons."
+          "summary": "Practical evaluation framework discussion for applied agent and analytics workflows."
         }
       ]
     },
     "context-data-prep": {
       "name": "Context & Data Preparation for AI",
-      "commentary": "Context & Data Preparation for AI contains 2 tracked update(s) in this edition.",
+      "commentary": "Context & Data Preparation for AI contains 1 tracked update(s) in this edition.",
       "items": [
         {
-          "id": "8b0eaafedc559312fb655fc650829c4dbf3584f41bdd839cf9933237db3a7922",
-          "title": "Simon Willison on LLM tooling and context",
-          "url": "https://simonwillison.net/",
+          "id": "7a3927ce47c0950851590b1eb07b20fd25a0095032f414774017d1422fb09803",
+          "title": "Simon Willison on context engineering",
+          "url": "https://simonwillison.net/2024/Jun/30/context-engineering",
           "source": "Simon Willison",
           "date": "2026-04-01",
-          "summary": "Collect technical notes on prompt engineering, context handling, and tool ecosystems."
-        },
-        {
-          "id": "b2c7a1454a8ac1d41c15b133cdef1aa42d656f078352fa255c1357ee6b1ac437",
-          "title": "Chip Huyen on data and ML systems",
-          "url": "https://huyenchip.com/",
-          "source": "Chip Huyen",
-          "date": "2026-04-01",
-          "summary": "Capture writing on data pipelines, model serving, and practical ML architecture."
+          "summary": "Technical analysis of context handling patterns for robust LLM application behavior."
         }
       ]
     }

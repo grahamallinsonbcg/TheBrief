@@ -1,91 +1,56 @@
 items:
-  - title: "OpenAI news and release highlights"
-    url: "https://openai.com/news/"
+  - title: "OpenAI introduces GPT-4o mini"
+    url: "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/"
     source: "OpenAI"
     date: "2026-04-01"
-    raw_text: "Track notable OpenAI model and product release announcements for this edition."
+    raw_text: "Model release update focused on capability and cost improvements for practical deployment."
     streams: [model-releases, ai-tools-products]
 
-  - title: "Anthropic product and research updates"
-    url: "https://www.anthropic.com/news"
+  - title: "Anthropic introduces Claude 3.5 Sonnet"
+    url: "https://www.anthropic.com/news/claude-3-5-sonnet"
     source: "Anthropic"
     date: "2026-04-01"
-    raw_text: "Capture recent Claude model updates, API capabilities, and safety-related research notes."
+    raw_text: "Frontier model update covering benchmark movement and enterprise usage implications."
     streams: [model-releases, context-data-prep]
 
-  - title: "Google DeepMind research blog updates"
-    url: "https://deepmind.google/discover/blog/"
+  - title: "DeepMind Gemini 1.5 model update"
+    url: "https://deepmind.google/discover/blog/gemini-1-5-pro/"
     source: "Google DeepMind"
     date: "2026-04-01"
-    raw_text: "Monitor frontier research announcements, benchmarks, and major paper-linked posts."
+    raw_text: "Technical model-release post with long-context capabilities and eval references."
     streams: [research-papers, model-releases]
 
-  - title: "Meta AI research and model notes"
-    url: "https://ai.meta.com/blog/"
-    source: "Meta AI"
-    date: "2026-04-01"
-    raw_text: "Track open-source model releases, evaluation updates, and applied research writeups."
-    streams: [research-papers, model-releases]
-
-  - title: "Mistral company news"
-    url: "https://mistral.ai/news/"
-    source: "Mistral"
-    date: "2026-04-01"
-    raw_text: "Watch for new model drops, enterprise announcements, and capability improvements."
-    streams: [model-releases, ai-tools-products]
-
-  - title: "xAI blog updates"
-    url: "https://x.ai/blog"
+  - title: "xAI Grok model release notes"
+    url: "https://x.ai/blog/grok-2"
     source: "xAI"
     date: "2026-04-01"
-    raw_text: "Collect updates on xAI model releases and product ecosystem changes."
+    raw_text: "Release update summarizing model capability changes and product integration direction."
     streams: [model-releases, ai-tools-products]
 
-  - title: "Cohere product and enterprise case updates"
-    url: "https://cohere.com/blog"
+  - title: "Cohere enterprise AI deployment patterns"
+    url: "https://cohere.com/blog/command-r"
     source: "Cohere"
     date: "2026-04-01"
-    raw_text: "Focus on enterprise deployment case studies and model/product updates."
+    raw_text: "Enterprise-focused writeup on model utility, retrieval workflows, and production adoption."
     streams: [scaled-ai-use-cases, ai-tools-products]
 
-  - title: "ElevenLabs product blog"
-    url: "https://elevenlabs.io/blog"
+  - title: "ElevenLabs voice product release"
+    url: "https://elevenlabs.io/blog/eleven-v3-alpha"
     source: "ElevenLabs"
     date: "2026-04-01"
-    raw_text: "Track voice AI releases and notable product ecosystem updates."
+    raw_text: "Product release note for voice generation improvements and developer-facing capabilities."
     streams: [ai-tools-products]
 
-  - title: "Exponential View strategic AI analysis"
-    url: "https://www.exponentialview.co/"
-    source: "Azeem Azhar / Exponential View"
-    date: "2026-04-01"
-    raw_text: "Capture strategic context pieces that connect AI technical shifts to market impact."
-    streams: [scaled-ai-use-cases, model-releases]
-
-  - title: "One Useful Thing practitioner perspective"
-    url: "https://www.oneusefulthing.org/"
-    source: "Ethan Mollick / One Useful Thing"
-    date: "2026-04-01"
-    raw_text: "Track practical AI usage insights and examples of scaled real-world adoption."
-    streams: [scaled-ai-use-cases, ai-tools-products]
-
-  - title: "Simon Willison on LLM tooling and context"
-    url: "https://simonwillison.net/"
+  - title: "Simon Willison on context engineering"
+    url: "https://simonwillison.net/2024/Jun/30/context-engineering/"
     source: "Simon Willison"
     date: "2026-04-01"
-    raw_text: "Collect technical notes on prompt engineering, context handling, and tool ecosystems."
+    raw_text: "Technical analysis of context handling patterns for robust LLM application behavior."
     streams: [context-data-prep, ai-tools-products]
 
-  - title: "Chip Huyen on data and ML systems"
-    url: "https://huyenchip.com/"
-    source: "Chip Huyen"
-    date: "2026-04-01"
-    raw_text: "Capture writing on data pipelines, model serving, and practical ML architecture."
-    streams: [context-data-prep, data-analytics-agents]
-
-  - title: "Eugene Yan on data products and agents"
-    url: "https://eugeneyan.com/"
+  - title: "Eugene Yan on LLM evaluators"
+    url: "https://eugeneyan.com/writing/llm-evaluators/"
     source: "Eugene Yan"
     date: "2026-04-01"
-    raw_text: "Track analytics-agent use cases, product analytics strategy, and ML product lessons."
+    raw_text: "Practical evaluation framework discussion for applied agent and analytics workflows."
     streams: [data-analytics-agents, scaled-ai-use-cases]
