@@ -5,19 +5,20 @@ import { StreamTabs } from "@/components/StreamTabs";
 import { getEditionBySlug, getEditionManifest } from "@/lib/editions";
 
 type EditionPageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 export default async function EditionPage({ params }: EditionPageProps) {
+  const { slug } = await params;
   const manifest = await getEditionManifest();
-  const exists = manifest.editions.some((entry) => entry.slug === params.slug);
+  const exists = manifest.editions.some((entry) => entry.slug === slug);
   if (!exists) {
     notFound();
   }
 
-  const edition = await getEditionBySlug(params.slug);
+  const edition = await getEditionBySlug(slug);
 
   return (
     <main className="min-h-screen bg-slate-50">
