@@ -1,0 +1,3 @@
+# TheBrief
+
+Initial repository setup.
