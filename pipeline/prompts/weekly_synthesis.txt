@@ -1,0 +1,1 @@
+Given all items for this week, synthesize the highest-signal developments across all streams.

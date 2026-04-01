@@ -1,0 +1,2 @@
+Summarize the following article in 3-5 sentences for a technical reader.
+Return JSON with keys: summary, stream_tag, signal_score.

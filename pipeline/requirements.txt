@@ -1,0 +1,6 @@
+anthropic
+click
+feedparser
+firecrawl-py
+pyyaml
+requests
