@@ -3,7 +3,7 @@
   "date": "2026-04-03",
   "type": "edition",
   "streams": {
-    "model-releases": {
+    "model-releases-benchmarks": {
       "name": "Model Releases & Benchmarks",
       "commentary": "A busy week across the frontier labs. OpenAI's GPT-4o mini lowers the cost floor substantially, Anthropic's Claude 3.5 Sonnet raises the performance ceiling at mid-tier pricing, and both Google DeepMind and xAI shipped meaningful capability updates. The overall direction is clear: capable models are becoming cheaper and more accessible, tightening the window for differentiation on raw model performance alone.",
       "items": [
@@ -45,49 +45,10 @@
         }
       ]
     },
-    "research-papers": {
-      "name": "Research Papers",
-      "commentary": "This week's research highlight is Gemini 1.5 Pro's long-context architecture, which represents a genuine technical advance in how models handle large information spaces. The mixture-of-experts design at 1M token scale is worth studying for anyone building retrieval or document-analysis systems.",
+    "research-thought-leadership": {
+      "name": "Research & Thought Leadership",
+      "commentary": "This week's research highlight is Gemini 1.5 Pro's long-context architecture, which represents a genuine technical advance in how models handle large information spaces. Eugene Yan's evaluator framework gives practitioners a concrete approach to automated quality testing — a critical capability as AI deployments scale. Both are worth reading in full.",
       "items": [
-        {
-          "id": "056592a02dcf2fa87b205a7a1417cc499fc8a4d6da2ca9f6430b635bdba25f91",
-          "title": "DeepMind Gemini 1.5 Pro: long-context capabilities",
-          "url": "https://deepmind.google/discover/blog/gemini-1-5-pro",
-          "source": "Google DeepMind",
-          "date": "2026-04-03",
-          "summary": "Google DeepMind released Gemini 1.5 Pro with a breakthrough 1 million token context window, enabling analysis of entire codebases, hour-long videos, or large document collections in a single prompt. The model uses a mixture-of-experts architecture to maintain efficiency at this scale while matching Gemini 1.0 Ultra performance on most benchmarks. Retrieval and reasoning over long documents showed particular improvement, with near-perfect recall up to 1M tokens in needle-in-a-haystack tests. The model is available via Google AI Studio and the Vertex AI API with tiered pricing based on context length.",
-          "signal_score": 0.85
-        }
-      ]
-    },
-    "ai-tools-products": {
-      "name": "AI Tools & Products",
-      "commentary": "Voice AI took a step forward this week with ElevenLabs v3, and Cohere's Command R shows how purpose-built models are outpacing general-purpose ones for specific enterprise tasks. The trend toward specialisation — models tuned for retrieval, voice, or code — is accelerating.",
-      "items": [
-        {
-          "id": "b4b2b77655a3ff8016dc50a7bbc01cf8c1b916d9e1d717eb85b3e68e6e3d1b78",
-          "title": "ElevenLabs Eleven v3: next-generation voice synthesis",
-          "url": "https://elevenlabs.io/blog/eleven-v3-alpha",
-          "source": "ElevenLabs",
-          "date": "2026-04-03",
-          "summary": "ElevenLabs released Eleven v3 in alpha, introducing expressive emotional range, improved naturalness, and support for 32 languages with accent fidelity. The model enables nuanced voice direction through text prompts, allowing developers to specify tone, pacing, and emotion without manual audio editing. Latency has been reduced significantly, making real-time conversational applications more viable. The release targets audio content creators, voiceover production, and interactive AI agent deployments requiring high-quality speech.",
-          "signal_score": 0.75
-        }
-      ]
-    },
-    "scaled-ai-use-cases": {
-      "name": "Case Studies",
-      "commentary": "Two strong entries this week on the applied side. Cohere's Command R demonstrates how enterprise RAG workflows benefit from purpose-built retrieval models, and Eugene Yan's evaluator framework gives practitioners a concrete approach to automated quality testing for AI systems — a critical capability as deployments scale.",
-      "items": [
-        {
-          "id": "77e35e5f22be4a145b590c5fceed0e67438a0c127e6ed7c76e98291ddafaef1d",
-          "title": "Cohere Command R: enterprise retrieval and RAG",
-          "url": "https://cohere.com/blog/command-r",
-          "source": "Cohere",
-          "date": "2026-04-03",
-          "summary": "Cohere released Command R, a model optimised specifically for retrieval-augmented generation and enterprise search workflows rather than general-purpose chat. The model is designed to work reliably with grounding documents, reducing hallucination rates in RAG pipelines compared to general-purpose models. It supports tool use and structured citation output, making it well-suited for enterprise deployments that require traceable and auditable responses. Command R is available via the Cohere API with on-premises deployment options for regulated industries.",
-          "signal_score": 0.8
-        },
         {
           "id": "ade5ef8d767f301fddf28c129ffecb9fea2c81925a626e1d85068905e2e4a4ad",
           "title": "Eugene Yan: a practical guide to LLM evaluators",
@@ -99,18 +60,27 @@
         }
       ]
     },
-    "context-data-prep": {
-      "name": "Context & Data Preparation for AI",
-      "commentary": "The long-context theme from Gemini 1.5 Pro connects directly to context engineering practice. As models gain the ability to ingest massive inputs, the question shifts from 'what fits in context' to 'how do you structure context for reliable reasoning' — an area worth investing in for any team building production AI systems.",
+    "ai-trends-news": {
+      "name": "AI Trends & News",
+      "commentary": "Voice AI took a step forward this week with ElevenLabs v3, and Cohere's Command R shows how purpose-built models are outpacing general-purpose ones for specific enterprise tasks. The trend toward specialisation — models tuned for retrieval, voice, or code — is accelerating.",
       "items": [
         {
-          "id": "e91e6f80eaaceb584f2332495ca16ab2902c8d464dba8ec097851744dfe1e764",
-          "title": "Anthropic introduces Claude 3.5 Sonnet",
-          "url": "https://www.anthropic.com/news/claude-3-5-sonnet",
-          "source": "Anthropic",
+          "id": "b4b2b77655a3ff8016dc50a7bbc01cf8c1b916d9e1d717eb85b3e68e6e3d1b78",
+          "title": "ElevenLabs Eleven v3: next-generation voice synthesis",
+          "url": "https://elevenlabs.io/blog/eleven-v3-alpha",
+          "source": "ElevenLabs",
           "date": "2026-04-03",
-          "summary": "Anthropic released Claude 3.5 Sonnet, establishing a new performance tier that surpasses Claude 3 Opus on key benchmarks while running at the speed and cost of the Sonnet tier. The model shows particular improvements in coding, reasoning, and instruction-following tasks according to internal and third-party evaluations. It introduces a new 'computer use' capability in beta, allowing the model to interact with desktop interfaces directly. Enterprise customers gain access through the API and Claude.ai with expanded context window support.",
-          "signal_score": 0.9
+          "summary": "ElevenLabs released Eleven v3 in alpha, introducing expressive emotional range, improved naturalness, and support for 32 languages with accent fidelity. The model enables nuanced voice direction through text prompts, allowing developers to specify tone, pacing, and emotion without manual audio editing. Latency has been reduced significantly, making real-time conversational applications more viable. The release targets audio content creators, voiceover production, and interactive AI agent deployments requiring high-quality speech.",
+          "signal_score": 0.75
+        },
+        {
+          "id": "77e35e5f22be4a145b590c5fceed0e67438a0c127e6ed7c76e98291ddafaef1d",
+          "title": "Cohere Command R: enterprise retrieval and RAG",
+          "url": "https://cohere.com/blog/command-r",
+          "source": "Cohere",
+          "date": "2026-04-03",
+          "summary": "Cohere released Command R, a model optimised specifically for retrieval-augmented generation and enterprise search workflows rather than general-purpose chat. The model is designed to work reliably with grounding documents, reducing hallucination rates in RAG pipelines compared to general-purpose models. It supports tool use and structured citation output, making it well-suited for enterprise deployments that require traceable and auditable responses. Command R is available via the Cohere API with on-premises deployment options for regulated industries.",
+          "signal_score": 0.8
         }
       ]
     }

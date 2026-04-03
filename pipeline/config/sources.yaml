@@ -1,86 +1,98 @@
 streams:
+<<<<<<< Updated upstream
   - model-releases
   - research-papers
   - ai-tools-products
   - scaled-ai-use-cases
+  - data-analytics-agents
   - context-data-prep
+=======
+  - ai-trends-news
+  - model-releases-benchmarks
+  - research-thought-leadership
+>>>>>>> Stashed changes
 
 sources:
   # Tier 1: RSS sources
   - name: arXiv AI
     tier: rss
     url: https://rss.arxiv.org/rss/cs.AI
-    streams: [research-papers]
+    streams: [research-thought-leadership]
   - name: Hugging Face Blog
     tier: rss
     url: https://huggingface.co/blog/feed.xml
-    streams: [model-releases, ai-tools-products, context-data-prep]
+    streams: [model-releases-benchmarks]
   - name: Towards Data Science
     tier: rss
     url: https://towardsdatascience.com/feed
-    streams: [context-data-prep]
+<<<<<<< Updated upstream
+    streams: [data-analytics-agents, context-data-prep]
+=======
+    streams: [research-thought-leadership]
+>>>>>>> Stashed changes
   - name: Simon Willison Blog
     tier: rss
     url: https://simonwillison.net/atom/everything/
-    streams: [ai-tools-products, context-data-prep]
+    streams: [research-thought-leadership]
   - name: Latent Space
     tier: rss
     url: https://www.latent.space/feed
-    streams: [ai-tools-products, model-releases]
+    streams: [research-thought-leadership]
 
   # Tier 2: Scrape sources
   - name: OpenAI Blog
     tier: scrape
     url: https://openai.com/news
-    streams: [model-releases, ai-tools-products]
+    streams: [model-releases-benchmarks]
   - name: Anthropic News
     tier: scrape
     url: https://www.anthropic.com/news
-    streams: [model-releases, ai-tools-products, context-data-prep]
+    streams: [model-releases-benchmarks]
   - name: Google DeepMind Blog
     tier: scrape
     url: https://deepmind.google/discover/blog/
-    streams: [model-releases, research-papers]
+    streams: [model-releases-benchmarks, research-thought-leadership]
   - name: Meta AI
     tier: scrape
     url: https://ai.meta.com/blog/
-    streams: [model-releases, research-papers]
+    streams: [model-releases-benchmarks]
   - name: Mistral News
     tier: scrape
     url: https://mistral.ai/news/
-    streams: [model-releases, ai-tools-products]
+    streams: [model-releases-benchmarks]
   - name: xAI
     tier: scrape
     url: https://x.ai/blog
-    streams: [model-releases, ai-tools-products]
+    streams: [model-releases-benchmarks]
   - name: Cohere
     tier: scrape
     url: https://cohere.com/blog
-    streams: [model-releases, ai-tools-products, scaled-ai-use-cases]
+    streams: [model-releases-benchmarks, ai-trends-news]
   - name: Sierra
     tier: scrape
     url: https://sierra.ai/news
-    streams: [ai-tools-products, scaled-ai-use-cases]
+    streams: [ai-trends-news]
   - name: ElevenLabs
     tier: scrape
     url: https://elevenlabs.io/blog
-    streams: [ai-tools-products]
+    streams: [ai-trends-news]
   - name: Exponential View
     tier: scrape
     url: https://www.exponentialview.co/
-    streams: [scaled-ai-use-cases, model-releases]
+    streams: [ai-trends-news]
   - name: One Useful Thing
     tier: scrape
     url: https://www.oneusefulthing.org/
-    streams: [scaled-ai-use-cases, ai-tools-products]
+    streams: [research-thought-leadership]
   - name: Eugene Yan
     tier: scrape
     url: https://eugeneyan.com/
-    streams: [scaled-ai-use-cases]
+<<<<<<< Updated upstream
+    streams: [data-analytics-agents, scaled-ai-use-cases]
   - name: Chip Huyen
     tier: scrape
     url: https://huyenchip.com/
-    streams: [context-data-prep]
+    streams: [context-data-prep, data-analytics-agents]
 
 manual_sources:
   - name: Karpathy social posts
@@ -92,3 +104,10 @@ manual_sources:
   - name: Mustafa Suleyman social posts
     tier: manual
     streams: [model-releases, scaled-ai-use-cases]
+=======
+    streams: [research-thought-leadership]
+  - name: Chip Huyen
+    tier: scrape
+    url: https://huyenchip.com/
+    streams: [research-thought-leadership]
+>>>>>>> Stashed changes

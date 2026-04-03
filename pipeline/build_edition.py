@@ -5,11 +5,9 @@ from datetime import datetime, timezone
 from typing import Any
 
 STREAM_LABELS = {
-    "model-releases": "Model Releases & Benchmarks",
-    "research-papers": "Research Papers",
-    "ai-tools-products": "AI Tools & Products",
-    "scaled-ai-use-cases": "Case Studies",
-    "context-data-prep": "Context & Data Preparation for AI",
+    "ai-trends-news": "AI Trends & News",
+    "model-releases-benchmarks": "Model Releases & Benchmarks",
+    "research-thought-leadership": "Research & Thought Leadership",
 }
 
 
@@ -22,7 +20,7 @@ def build_edition(
 ) -> dict[str, Any]:
     """Build final edition JSON shape consumed by the frontend."""
     date_value = run_date or datetime.now(timezone.utc).date().isoformat()
-    edition_type = "weekly-wrap" if day == "sun" else "edition"
+    edition_type = "edition"
 
     items: list[dict[str, Any]] = processed.get("items", [])
     stream_commentary: dict[str, str] = processed.get("stream_commentary", {})
@@ -51,14 +49,9 @@ def build_edition(
             "items": grouped[stream_tag],
         }
 
-    edition: dict[str, Any] = {
+    return {
         "slug": slug,
         "date": date_value,
         "type": edition_type,
         "streams": streams,
     }
-
-    if edition_type == "weekly-wrap":
-        edition["synthesis"] = processed.get("weekly_synthesis", "")
-
-    return edition
