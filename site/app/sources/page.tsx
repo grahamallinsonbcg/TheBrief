@@ -1,11 +1,14 @@
 import Link from "next/link";
-import { BookmarksView } from "@/components/BookmarksView";
 import { Header } from "@/components/Header";
+import { SourcesEditor } from "@/components/SourcesEditor";
+import { getSourceSnapshot } from "@/lib/sources";
 
-export default function BookmarksPage() {
+export default async function SourcesPage() {
+  const snapshot = await getSourceSnapshot();
+
   return (
     <main className="min-h-screen bg-slate-50">
-      <Header dateLabel="Bookmarks" />
+      <Header dateLabel="Sources" />
       <div className="mx-auto w-full max-w-4xl px-6 py-6">
         <div className="mb-4">
           <Link
@@ -15,13 +18,9 @@ export default function BookmarksPage() {
             ← Back to latest edition
           </Link>
         </div>
-        <BookmarksView />
+
+        <SourcesEditor initialSnapshot={snapshot} />
       </div>
-      <footer className="mt-12 border-t border-slate-200">
-        <div className="mx-auto flex w-full max-w-4xl items-center justify-between px-6 py-4">
-          <p className="text-xs text-slate-400">TheBrief · AI Signal Reader</p>
-        </div>
-      </footer>
     </main>
   );
 }

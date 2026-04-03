@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { EditionNav } from "@/components/EditionNav";
 import { Header } from "@/components/Header";
 import { StreamTabs } from "@/components/StreamTabs";
 import { getEditionBySlug, getEditionManifest } from "@/lib/editions";
@@ -24,7 +23,6 @@ export default async function EditionPage({ params }: EditionPageProps) {
     <main className="min-h-screen bg-slate-50">
       <Header dateLabel={edition.date} />
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-6">
-        <EditionNav editions={manifest.editions} currentSlug={edition.slug} />
         <StreamTabs edition={edition} />
       </div>
       <footer className="mt-12 border-t border-slate-200">

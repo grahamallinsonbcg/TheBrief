@@ -27,12 +27,20 @@ export function EditionNav({ editions, currentSlug }: EditionNavProps) {
           <span className="text-slate-300">← Previous</span>
         )}
       </div>
-      <Link
-        href="/bookmarks"
-        className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-1.5 font-medium text-slate-700 hover:border-accent hover:text-accent transition-colors"
-      >
-        Saved
-      </Link>
+      <div className="flex items-center gap-2">
+        <Link
+          href="/sources"
+          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-1.5 font-medium text-slate-700 hover:border-accent hover:text-accent transition-colors"
+        >
+          Sources
+        </Link>
+        <Link
+          href="/bookmarks"
+          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-1.5 font-medium text-slate-700 hover:border-accent hover:text-accent transition-colors"
+        >
+          Saved
+        </Link>
+      </div>
       <div className="w-1/3 flex justify-end">
         {next ? (
           <Link
