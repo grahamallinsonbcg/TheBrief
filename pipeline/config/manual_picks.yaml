@@ -3,47 +3,47 @@ items:
     url: "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/"
     source: "OpenAI"
     date: "2026-04-03"
-    raw_text: "OpenAI released GPT-4o mini, a smaller and cheaper variant of GPT-4o targeting cost-sensitive production use cases. The model delivers strong performance on text and vision tasks at a fraction of the cost of the full GPT-4o, making it viable for high-volume applications. It outperforms GPT-3.5 Turbo on most benchmarks while being significantly more affordable. This positions OpenAI to compete more directly with smaller open-weight models and Anthropic's Haiku tier."
-    streams: [model-releases, ai-tools-products]
+    raw_text: "OpenAI released GPT-4o mini, a smaller and cheaper variant of GPT-4o targeting cost-sensitive production use cases. The model delivers strong performance on text and vision tasks at a fraction of the cost of the full GPT-4o, making it viable for high-volume applications."
+    streams: [model-releases-benchmarks]
 
   - title: "Anthropic introduces Claude 3.5 Sonnet"
     url: "https://www.anthropic.com/news/claude-3-5-sonnet"
     source: "Anthropic"
     date: "2026-04-03"
-    raw_text: "Anthropic released Claude 3.5 Sonnet, establishing a new performance tier that surpasses Claude 3 Opus on key benchmarks while running at the speed and cost of the Sonnet tier. The model shows particular improvements in coding, reasoning, and instruction-following tasks according to internal and third-party evaluations. It introduces a new 'computer use' capability in beta, allowing the model to interact with desktop interfaces directly. Enterprise customers gain access through the API and Claude.ai with expanded context window support."
-    streams: [model-releases, context-data-prep]
+    raw_text: "Anthropic released Claude 3.5 Sonnet with stronger coding and reasoning performance while keeping Sonnet-tier latency and cost characteristics."
+    streams: [model-releases-benchmarks]
 
   - title: "DeepMind Gemini 1.5 Pro: long-context capabilities"
     url: "https://deepmind.google/discover/blog/gemini-1-5-pro/"
     source: "Google DeepMind"
     date: "2026-04-03"
-    raw_text: "Google DeepMind released Gemini 1.5 Pro with a breakthrough 1 million token context window, enabling analysis of entire codebases, hour-long videos, or large document collections in a single prompt. The model uses a mixture-of-experts architecture to maintain efficiency at this scale while matching Gemini 1.0 Ultra performance on most benchmarks. Retrieval and reasoning over long documents showed particular improvement, with near-perfect recall up to 1M tokens in needle-in-a-haystack tests. The model is available via Google AI Studio and the Vertex AI API with tiered pricing based on context length."
-    streams: [research-papers, model-releases]
+    raw_text: "Google DeepMind expanded long-context model capabilities for large-document and codebase reasoning use cases."
+    streams: [model-releases-benchmarks]
 
   - title: "xAI Grok-2 model release"
     url: "https://x.ai/blog/grok-2"
     source: "xAI"
     date: "2026-04-03"
-    raw_text: "xAI launched Grok-2, a significant capability upgrade over Grok-1.5 with improvements in reasoning, coding, and multimodal understanding. The model integrates real-time X (Twitter) data access, giving it a unique advantage for current events and social signal tracking compared to models with fixed training cutoffs. Grok-2 mini is offered as a faster, lower-cost variant for lighter workloads. Both models are available to X Premium subscribers and through the xAI API."
-    streams: [model-releases, ai-tools-products]
+    raw_text: "xAI launched Grok-2 with improved reasoning and multimodal behavior, plus a lighter mini variant."
+    streams: [model-releases-benchmarks]
 
   - title: "Cohere Command R: enterprise retrieval and RAG"
     url: "https://cohere.com/blog/command-r"
     source: "Cohere"
     date: "2026-04-03"
-    raw_text: "Cohere released Command R, a model optimised specifically for retrieval-augmented generation and enterprise search workflows rather than general-purpose chat. The model is designed to work reliably with grounding documents, reducing hallucination rates in RAG pipelines compared to general-purpose models. It supports tool use and structured citation output, making it well-suited for enterprise deployments that require traceable and auditable responses. Command R is available via the Cohere API with on-premises deployment options for regulated industries."
-    streams: [scaled-ai-use-cases, ai-tools-products]
+    raw_text: "Cohere positioned Command R around enterprise retrieval and grounded generation workflows."
+    streams: [ai-trends-news]
 
   - title: "ElevenLabs Eleven v3: next-generation voice synthesis"
     url: "https://elevenlabs.io/blog/eleven-v3-alpha"
     source: "ElevenLabs"
     date: "2026-04-03"
-    raw_text: "ElevenLabs released Eleven v3 in alpha, introducing expressive emotional range, improved naturalness, and support for 32 languages with accent fidelity. The model enables nuanced voice direction through text prompts, allowing developers to specify tone, pacing, and emotion without manual audio editing. Latency has been reduced significantly, making real-time conversational applications more viable. The release targets audio content creators, voiceover production, and interactive AI agent deployments requiring high-quality speech."
-    streams: [ai-tools-products]
+    raw_text: "ElevenLabs released an updated voice model focused on expressiveness and production-ready latency."
+    streams: [ai-trends-news]
 
   - title: "Eugene Yan: a practical guide to LLM evaluators"
     url: "https://eugeneyan.com/writing/llm-evaluators/"
     source: "Eugene Yan"
     date: "2026-04-03"
-    raw_text: "Eugene Yan published a comprehensive framework for using LLMs as evaluators of other LLM outputs, covering when this approach is reliable versus when it breaks down. The post identifies key failure modes including self-preference bias, position bias, and verbosity bias that inflate scores when using the same model family to evaluate itself. Practical mitigation strategies include using a different model family as judge, calibrating against human labels, and decomposing evaluation into atomic criteria. The framework is directly applicable to teams building automated regression testing for AI applications."
-    streams: [scaled-ai-use-cases]
+    raw_text: "A practical framework for evaluating LLM outputs with robust anti-bias and calibration guidance."
+    streams: [research-thought-leadership]

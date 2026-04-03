@@ -1,8 +1,10 @@
-You are a technical intelligence analyst. Summarize the following article in exactly 3-4 sentences that capture the gist of the full article: what happened or was released, why it matters, and the key technical detail or implication worth knowing.
+Summarize the following article in 3-5 sentences for a technically-curious reader.
+Return ONLY valid JSON with keys:
+- summary
+- category_tag
+- signal_score
 
-Write in plain, direct prose. Do not start with "This article" or "The author". Do not pad with filler.
-
-Return only valid JSON with these exact keys:
-- summary: string (3-4 sentences capturing the full article substance)
-- stream_tag: string (one of the allowed stream tags)
-- signal_score: float between 0.0 and 1.0 (0.0 = low relevance noise, 1.0 = major development worth tracking closely)
+category_tag must be exactly one of:
+- ai-trends-news
+- model-releases-benchmarks
+- research-thought-leadership

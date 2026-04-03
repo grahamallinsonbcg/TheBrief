@@ -7,13 +7,11 @@ from typing import Any
 
 from anthropic import Anthropic
 
-STREAM_FALLBACK = "ai-tools-products"
+STREAM_FALLBACK = "ai-trends-news"
 STREAM_LABELS = {
-    "model-releases": "Model Releases & Benchmarks",
-    "research-papers": "Research Papers",
-    "ai-tools-products": "AI Tools & Products",
-    "scaled-ai-use-cases": "Case Studies",
-    "context-data-prep": "Context & Data Preparation for AI",
+    "ai-trends-news": "AI Trends and News",
+    "model-releases-benchmarks": "Model Releases and Benchmarks",
+    "research-thought-leadership": "Research and Thought Leadership",
 }
 
 
@@ -41,7 +39,7 @@ def _extract_text(response: Any) -> str:
 def _summarize_without_llm(item: dict[str, Any]) -> dict[str, Any]:
     return {
         "summary": (item.get("raw_text") or item.get("title") or "")[:500],
-        "stream_tag": (item.get("streams") or [STREAM_FALLBACK])[0],
+        "category_tag": (item.get("streams") or [STREAM_FALLBACK])[0],
         "signal_score": 0.5,
     }
 
@@ -76,7 +74,7 @@ def process_items(
                         "role": "user",
                         "content": (
                             f"{summarize_prompt}\n\n"
-                            "Choose stream_tag from: "
+                            "Choose category_tag from: "
                             f"{', '.join(STREAM_LABELS.keys())}.\n\n"
                             f"TITLE: {item.get('title', '')}\n"
                             f"SOURCE: {item.get('source', '')}\n"
@@ -91,9 +89,9 @@ def process_items(
             if not result:
                 result = _summarize_without_llm(item)
 
-        stream_tag = result.get("stream_tag") or (item.get("streams") or [STREAM_FALLBACK])[0]
-        if stream_tag not in STREAM_LABELS:
-            stream_tag = STREAM_FALLBACK
+        category_tag = result.get("category_tag") or (item.get("streams") or [STREAM_FALLBACK])[0]
+        if category_tag not in STREAM_LABELS:
+            category_tag = STREAM_FALLBACK
 
         processed_items.append(
             {
@@ -103,7 +101,7 @@ def process_items(
                 "source": item["source"],
                 "date": item["date"],
                 "summary": result.get("summary", item.get("raw_text", "")[:500]),
-                "stream_tag": stream_tag,
+                "stream_tag": category_tag,
                 "signal_score": float(result.get("signal_score", 0.5)),
             }
         )

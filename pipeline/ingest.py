@@ -4,7 +4,7 @@ import hashlib
 import os
 import re
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 from typing import Any
@@ -13,6 +13,7 @@ import feedparser
 import requests
 import yaml
 from bs4 import BeautifulSoup
+from anthropic import Anthropic
 
 try:
     from firecrawl import FirecrawlApp
@@ -33,12 +34,25 @@ def _load_yaml(path: str) -> dict[str, Any]:
         return yaml.safe_load(file) or {}
 
 
-def _is_recent(date_str: str, days: int = 7) -> bool:
+def _read_text(path: str) -> str:
+    with open(path, "r", encoding="utf-8") as file:
+        return file.read().strip()
+
+
+def _safe_json_load(raw: str) -> dict[str, Any]:
     try:
-        cutoff = datetime.now(timezone.utc).date() - timedelta(days=days)
-        return datetime.fromisoformat(date_str).date() >= cutoff
-    except ValueError:
-        return True
+        return yaml.safe_load(raw) or {}
+    except yaml.YAMLError:
+        return {}
+
+
+def _extract_text(response: Any) -> str:
+    chunks = []
+    for part in getattr(response, "content", []):
+        text = getattr(part, "text", None)
+        if text:
+            chunks.append(text)
+    return "\n".join(chunks).strip()
 
 
 def _to_iso_date(value: str | None) -> str:
@@ -49,6 +63,13 @@ def _to_iso_date(value: str | None) -> str:
         return parsed.date().isoformat()
     except (TypeError, ValueError):
         return datetime.now(timezone.utc).date().isoformat()
+
+
+def _iso_to_date(value: str) -> datetime.date | None:
+    try:
+        return datetime.fromisoformat(value).date()
+    except ValueError:
+        return None
 
 
 def _normalize_item(
@@ -253,6 +274,70 @@ def _ingest_manual_items(path: str) -> list[dict[str, Any]]:
     return normalized
 
 
+def discover_items_with_llm_search(
+    *,
+    day: str,
+    window_start: str,
+    window_end: str,
+    trusted_domains: list[str],
+    prompt_path: str = "pipeline/prompts/discovery.txt",
+    model: str = "claude-3-5-sonnet-latest",
+) -> list[dict[str, Any]]:
+    """Discover recent web articles with Anthropic-assisted market scan."""
+    api_key = os.getenv("ANTHROPIC_API_KEY")
+    if not api_key:
+        return []
+
+    prompt = _read_text(prompt_path)
+    client = Anthropic(api_key=api_key)
+    domain_text = ", ".join(sorted(set(trusted_domains)))
+    user_prompt = (
+        f"{prompt}\n\n"
+        f"RUN_DAY: {day}\n"
+        f"DATE_WINDOW_START: {window_start}\n"
+        f"DATE_WINDOW_END: {window_end}\n"
+        f"TRUSTED_SOURCE_DOMAINS: {domain_text}\n"
+    )
+
+    response = client.messages.create(
+        model=model,
+        max_tokens=2200,
+        temperature=0,
+        messages=[{"role": "user", "content": user_prompt}],
+    )
+    payload = _safe_json_load(_extract_text(response))
+    items = payload.get("items", []) if isinstance(payload, dict) else []
+    normalized: list[dict[str, Any]] = []
+    start_date = _iso_to_date(window_start)
+    end_date = _iso_to_date(window_end)
+    for item in items:
+        url = (item.get("url") or "").strip()
+        title = (item.get("title") or "").strip()
+        published = (item.get("published_date") or "").strip()
+        if not url or not title or not published:
+            continue
+        parsed = urlparse(url)
+        if not _looks_like_article_path(parsed.path):
+            continue
+        item_date = _iso_to_date(published)
+        if not item_date or not start_date or not end_date:
+            continue
+        if not (start_date <= item_date <= end_date):
+            continue
+        category = (item.get("category_tag") or "ai-trends-news").strip()
+        normalized.append(
+            _normalize_item(
+                title=title,
+                url=url,
+                source=(item.get("source") or parsed.netloc).strip(),
+                date=published,
+                raw_text=((item.get("raw_excerpt") or "") + "\n" + (item.get("why_relevant") or "")).strip(),
+                streams=[category],
+            )
+        )
+    return normalized
+
+
 def ingest_items(
     sources_path: str = "pipeline/config/sources.yaml",
     manual_picks_path: str = "pipeline/config/manual_picks.yaml",
@@ -278,9 +363,6 @@ def ingest_items(
             )
 
     combined.extend(_ingest_manual_items(manual_picks_path))
-
-    # Filter to recent articles only.
-    combined = [item for item in combined if _is_recent(item["date"])]
 
     # Deduplicate by URL hash while preserving first-seen order.
     deduped: dict[str, dict[str, Any]] = {}

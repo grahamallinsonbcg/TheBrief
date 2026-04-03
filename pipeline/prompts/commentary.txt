@@ -1,1 +1,2 @@
-Given these items in a single stream, write concise factual commentary about what matters and why.
+Given these items in a single category, write concise factual commentary about what matters and why.
+Use plain English, avoid hype, and focus on cross-item signal.

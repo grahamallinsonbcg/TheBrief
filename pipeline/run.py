@@ -1,11 +1,13 @@
 import click
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
+import yaml
 
 from build_edition import build_edition
-from ingest import canonicalize_url, ingest_items
+from ingest import canonicalize_url, discover_items_with_llm_search, ingest_items
 from process import process_items
 
 DAY_TO_NAME = {
@@ -16,6 +18,13 @@ DAY_TO_NAME = {
 def _slug_for(day: str) -> str:
     date = datetime.now(timezone.utc).date().isoformat()
     return f"{date}-{day}"
+
+
+def _window_for(day: str) -> tuple[str, str]:
+    end_date = datetime.now(timezone.utc).date()
+    days_back = {"mon": 3, "wed": 2, "fri": 2, "sun": 7}[day]
+    start_date = end_date - timedelta(days=days_back)
+    return start_date.isoformat(), end_date.isoformat()
 
 
 def _write_json(path: Path, payload: dict) -> None:
@@ -45,6 +54,27 @@ def _update_manifest(manifest_path: Path, slug: str, day: str, date_value: str) 
     manifest["editions"] = editions
     manifest["latest"] = slug
     _write_json(manifest_path, manifest)
+
+
+def _load_trusted_domains(sources_path: str = "pipeline/config/sources.yaml") -> list[str]:
+    with open(sources_path, "r", encoding="utf-8") as file:
+        payload = yaml.safe_load(file) or {}
+    domains: list[str] = []
+    for source in payload.get("sources", []):
+        url = source.get("url")
+        if isinstance(url, str) and url.strip():
+            domains.append(urlparse(url).netloc.lower())
+    return sorted(set(domains))
+
+
+def _within_window(date_value: str, start_date: str, end_date: str) -> bool:
+    try:
+        target = datetime.fromisoformat(date_value).date()
+        start = datetime.fromisoformat(start_date).date()
+        end = datetime.fromisoformat(end_date).date()
+    except ValueError:
+        return False
+    return start <= target <= end
 
 
 def _load_seen_urls(output_path: Path, current_slug: str) -> set[str]:
@@ -92,12 +122,24 @@ def main(day: str, output_dir: str, skip_empty: bool) -> None:
     date_value = slug[:10]
     output_path = Path(output_dir)
     seen_urls = _load_seen_urls(output_path, slug)
+    window_start, window_end = _window_for(day)
+    trusted_domains = _load_trusted_domains()
 
-    items = ingest_items()
-    new_items = [item for item in items if canonicalize_url(item["url"]) not in seen_urls]
+    trusted_items = ingest_items()
+    discovered_items = discover_items_with_llm_search(
+        day=day,
+        window_start=window_start,
+        window_end=window_end,
+        trusted_domains=trusted_domains,
+    )
+    merged = trusted_items + discovered_items
+    within_window = [item for item in merged if _within_window(item.get("date", ""), window_start, window_end)]
+    new_items = [item for item in within_window if canonicalize_url(item["url"]) not in seen_urls]
     print(
         "Ingest stats "
-        f"(day={day}): ingested={len(items)}, seen={len(seen_urls)}, new={len(new_items)}"
+        f"(day={day}, window={window_start}..{window_end}): "
+        f"trusted={len(trusted_items)}, discovered={len(discovered_items)}, "
+        f"within_window={len(within_window)}, seen={len(seen_urls)}, new={len(new_items)}"
     )
 
     if not new_items and skip_empty:

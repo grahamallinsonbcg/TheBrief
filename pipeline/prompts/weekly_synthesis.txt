@@ -1,1 +1,6 @@
-Given all items for this week, synthesize the highest-signal developments across all streams.
+Given all items for this week, synthesize the highest-signal developments across these three categories:
+- AI Trends and News
+- Model Releases and Benchmarks
+- Research and Thought Leadership
+
+Prioritize concrete developments, supporting evidence, and what to watch next week.

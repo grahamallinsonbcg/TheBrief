@@ -5,11 +5,9 @@ from datetime import datetime, timezone
 from typing import Any
 
 STREAM_LABELS = {
-    "model-releases": "Model Releases & Benchmarks",
-    "research-papers": "Research Papers",
-    "ai-tools-products": "AI Tools & Products",
-    "scaled-ai-use-cases": "Case Studies",
-    "context-data-prep": "Context & Data Preparation for AI",
+    "ai-trends-news": "AI Trends and News",
+    "model-releases-benchmarks": "Model Releases and Benchmarks",
+    "research-thought-leadership": "Research and Thought Leadership",
 }
 
 
