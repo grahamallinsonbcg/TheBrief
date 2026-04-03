@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import re
 from dataclasses import dataclass
@@ -40,6 +41,20 @@ def _read_text(path: str) -> str:
 
 
 def _safe_json_load(raw: str) -> dict[str, Any]:
+    # Strict JSON first.
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        pass
+    # Fallback: parse a fenced JSON block if present.
+    fence_match = re.search(r"```json\s*(\{.*?\})\s*```", raw, flags=re.DOTALL)
+    if fence_match:
+        candidate = fence_match.group(1)
+        try:
+            return json.loads(candidate)
+        except json.JSONDecodeError:
+            return {}
+    # Last attempt using YAML parser for mildly malformed JSON.
     try:
         return yaml.safe_load(raw) or {}
     except yaml.YAMLError:
@@ -190,12 +205,19 @@ def _looks_like_article_path(path: str) -> bool:
         "archive",
         "archives",
         "authors",
+        "search",
+        "press",
+        "sitemap",
+        "terms",
+        "privacy",
     }
     leaf = normalized.split("/")[-1].lower()
     if leaf in blocked:
         return False
     # Home/list pages often end in index-like paths.
     if leaf in {"index", "latest", "all"}:
+        return False
+    if re.search(r"/(tag|tags|category|categories|archive|author)s?/", normalized):
         return False
     return True
 
@@ -282,11 +304,17 @@ def discover_items_with_llm_search(
     trusted_domains: list[str],
     prompt_path: str = "pipeline/prompts/discovery.txt",
     model: str = "claude-3-5-sonnet-latest",
-) -> list[dict[str, Any]]:
+) -> tuple[list[dict[str, Any]], dict[str, int]]:
     """Discover recent web articles with Anthropic-assisted market scan."""
     api_key = os.getenv("ANTHROPIC_API_KEY")
     if not api_key:
-        return []
+        return [], {
+            "discovery_raw_count": 0,
+            "discovery_valid_count": 0,
+            "dropped_missing_fields": 0,
+            "dropped_bad_url": 0,
+            "dropped_out_of_window": 0,
+        }
 
     prompt = _read_text(prompt_path)
     client = Anthropic(api_key=api_key)
@@ -303,10 +331,18 @@ def discover_items_with_llm_search(
         model=model,
         max_tokens=2200,
         temperature=0,
+        tools=[{"type": "web_search_20250305", "name": "web_search"}],
         messages=[{"role": "user", "content": user_prompt}],
     )
     payload = _safe_json_load(_extract_text(response))
     items = payload.get("items", []) if isinstance(payload, dict) else []
+    stats = {
+        "discovery_raw_count": len(items),
+        "discovery_valid_count": 0,
+        "dropped_missing_fields": 0,
+        "dropped_bad_url": 0,
+        "dropped_out_of_window": 0,
+    }
     normalized: list[dict[str, Any]] = []
     start_date = _iso_to_date(window_start)
     end_date = _iso_to_date(window_end)
@@ -315,14 +351,18 @@ def discover_items_with_llm_search(
         title = (item.get("title") or "").strip()
         published = (item.get("published_date") or "").strip()
         if not url or not title or not published:
+            stats["dropped_missing_fields"] += 1
             continue
         parsed = urlparse(url)
         if not _looks_like_article_path(parsed.path):
+            stats["dropped_bad_url"] += 1
             continue
         item_date = _iso_to_date(published)
         if not item_date or not start_date or not end_date:
+            stats["dropped_missing_fields"] += 1
             continue
         if not (start_date <= item_date <= end_date):
+            stats["dropped_out_of_window"] += 1
             continue
         category = (item.get("category_tag") or "ai-trends-news").strip()
         normalized.append(
@@ -335,7 +375,8 @@ def discover_items_with_llm_search(
                 streams=[category],
             )
         )
-    return normalized
+    stats["discovery_valid_count"] = len(normalized)
+    return normalized, stats
 
 
 def ingest_items(
