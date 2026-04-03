@@ -130,6 +130,7 @@ def build_public_snapshot(source_inputs: dict[str, Any]) -> dict[str, Any]:
             {
                 "name": name,
                 "note": (person.get("note") or "").strip(),
+                "url": (person.get("url") or person.get("profile_url") or "").strip(),
                 "category_tags": _normalized_streams(person.get("category_tags")),
             }
         )

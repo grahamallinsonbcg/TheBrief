@@ -1,5 +1,5 @@
 {
-  "last_updated_utc": "2026-04-03T09:08:20.249778+00:00",
+  "last_updated_utc": "2026-04-03T09:49:05.145522+00:00",
   "applies_to": "next edition",
   "note": "Configuration is centrally managed for quality control.",
   "trusted_sites": [
@@ -51,6 +51,7 @@
     {
       "name": "Andrej Karpathy",
       "note": "Research and model commentary",
+      "url": "",
       "category_tags": [
         "research-thought-leadership",
         "model-releases-benchmarks"
@@ -59,6 +60,7 @@
     {
       "name": "Ethan Mollick",
       "note": "Applied AI thought leadership",
+      "url": "",
       "category_tags": [
         "research-thought-leadership",
         "ai-trends-news"
@@ -67,6 +69,7 @@
     {
       "name": "Azeem Azhar",
       "note": "Strategic AI trends and implications",
+      "url": "",
       "category_tags": [
         "ai-trends-news",
         "research-thought-leadership"

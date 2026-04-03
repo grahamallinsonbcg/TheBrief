@@ -4,6 +4,7 @@ import os
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
+from urllib.request import Request, urlopen
 from urllib.parse import urlparse
 import yaml
 
@@ -109,6 +110,55 @@ def _load_seen_urls(output_path: Path, current_slug: str) -> set[str]:
     return seen
 
 
+def _is_valid_runtime_inputs(payload: Any) -> bool:
+    return (
+        isinstance(payload, dict)
+        and isinstance(payload.get("trusted_sites"), list)
+        and isinstance(payload.get("individuals"), list)
+        and isinstance(payload.get("search_terms"), list)
+    )
+
+
+def _sync_runtime_source_inputs(
+    source_inputs_path: str = "pipeline/config/source_inputs.yaml",
+    local_runtime_json_path: str = "site/public/config/source_inputs.runtime.json",
+) -> str:
+    """Pull source inputs from runtime frontend config before execution."""
+    runtime_payload: dict[str, Any] | None = None
+    source = "local-yaml"
+
+    remote_url = os.getenv("SOURCE_INPUTS_REMOTE_URL", "").strip()
+    if remote_url:
+        try:
+            request = Request(remote_url, headers={"User-Agent": "TheBriefPipeline/1.0"})
+            with urlopen(request, timeout=15) as response:
+                raw = response.read().decode("utf-8")
+            candidate = json.loads(raw)
+            if _is_valid_runtime_inputs(candidate):
+                runtime_payload = candidate
+                source = "remote-json"
+        except Exception:
+            pass
+
+    if runtime_payload is None:
+        runtime_path = Path(local_runtime_json_path)
+        if runtime_path.exists():
+            try:
+                with open(runtime_path, "r", encoding="utf-8") as file:
+                    candidate = json.load(file)
+                if _is_valid_runtime_inputs(candidate):
+                    runtime_payload = candidate
+                    source = "local-runtime-json"
+            except (json.JSONDecodeError, OSError):
+                pass
+
+    if runtime_payload is not None:
+        with open(source_inputs_path, "w", encoding="utf-8") as file:
+            yaml.safe_dump(runtime_payload, file, sort_keys=False, allow_unicode=False)
+
+    return source
+
+
 @click.command()
 @click.option("--day", type=click.Choice(["mon", "wed", "fri", "sun"]), required=True)
 @click.option(
@@ -158,6 +208,8 @@ def main(
     target_items: int,
     max_items: int,
 ) -> None:
+    source_inputs_origin = _sync_runtime_source_inputs()
+    print(f"Source input sync: {source_inputs_origin}")
     sources_snapshot = sync_source_configs()
     slug = _slug_for(day)
     date_value = slug[:10]

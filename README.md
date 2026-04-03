@@ -29,5 +29,14 @@ Project structure and mock edition data are initialized.
   - `pipeline/config/sources.yaml` (method-level mapping used by ingestion)
   - `site/public/config/sources.public.json` (public read-only snapshot for `/sources`)
 
+## Dynamic source config (v1)
+
+- Frontend runtime config file: `site/public/config/source_inputs.runtime.json`
+- Sources page can submit updates to `/api/source-inputs` (requires `SOURCE_CONFIG_ADMIN_TOKEN`)
+- Pipeline pre-run sync in `pipeline/run.py` pulls inputs in this order:
+  - `SOURCE_INPUTS_REMOTE_URL` (if set)
+  - local `site/public/config/source_inputs.runtime.json`
+  - fallback existing `pipeline/config/source_inputs.yaml`
+
 ### Environment
 Use `env.example` as the template for local environment variables.

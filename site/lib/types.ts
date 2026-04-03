@@ -47,6 +47,7 @@ export type SourceSnapshot = {
   individuals: Array<{
     name: string;
     note: string;
+    url?: string;
     category_tags: string[];
   }>;
   search_terms: Array<{

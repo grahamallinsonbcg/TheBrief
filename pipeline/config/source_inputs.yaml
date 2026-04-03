@@ -1,44 +1,59 @@
 trusted_sites:
-  - name: OpenAI
-    url: https://openai.com/news
-    rss_url:
-    category_tags: [model-releases-benchmarks]
-  - name: Anthropic
-    url: https://www.anthropic.com/news
-    rss_url:
-    category_tags: [model-releases-benchmarks, ai-trends-news]
-  - name: Google DeepMind
-    url: https://deepmind.google/discover/blog/
-    rss_url:
-    category_tags: [model-releases-benchmarks, research-thought-leadership]
-  - name: Hugging Face Blog
-    url: https://huggingface.co/blog
-    rss_url: https://huggingface.co/blog/feed.xml
-    category_tags: [model-releases-benchmarks, ai-trends-news]
-  - name: Simon Willison
-    url: https://simonwillison.net/
-    rss_url: https://simonwillison.net/atom/everything/
-    category_tags: [research-thought-leadership]
-
+- name: OpenAI
+  url: https://openai.com/news
+  rss_url: ''
+  category_tags:
+  - model-releases-benchmarks
+- name: Anthropic
+  url: https://www.anthropic.com/news
+  rss_url: ''
+  category_tags:
+  - model-releases-benchmarks
+  - ai-trends-news
+- name: Google DeepMind
+  url: https://deepmind.google/discover/blog/
+  rss_url: ''
+  category_tags:
+  - model-releases-benchmarks
+  - research-thought-leadership
+- name: Hugging Face Blog
+  url: https://huggingface.co/blog
+  rss_url: https://huggingface.co/blog/feed.xml
+  category_tags:
+  - model-releases-benchmarks
+  - ai-trends-news
+- name: Simon Willison
+  url: https://simonwillison.net/
+  rss_url: https://simonwillison.net/atom/everything/
+  category_tags:
+  - research-thought-leadership
 individuals:
-  - name: Andrej Karpathy
-    note: Research and model commentary
-    category_tags: [research-thought-leadership, model-releases-benchmarks]
-  - name: Ethan Mollick
-    note: Applied AI thought leadership
-    category_tags: [research-thought-leadership, ai-trends-news]
-  - name: Azeem Azhar
-    note: Strategic AI trends and implications
-    category_tags: [ai-trends-news, research-thought-leadership]
-
+- name: Andrej Karpathy
+  url: ''
+  note: Research and model commentary
+  category_tags:
+  - research-thought-leadership
+  - model-releases-benchmarks
+- name: Ethan Mollick
+  url: ''
+  note: Applied AI thought leadership
+  category_tags:
+  - research-thought-leadership
+  - ai-trends-news
+- name: Azeem Azhar
+  url: ''
+  note: Strategic AI trends and implications
+  category_tags:
+  - ai-trends-news
+  - research-thought-leadership
 search_terms:
-  - term: frontier model release
-    category_tag: model-releases-benchmarks
-  - term: ai benchmark results
-    category_tag: model-releases-benchmarks
-  - term: ai industry news
-    category_tag: ai-trends-news
-  - term: ai regulation and policy
-    category_tag: ai-trends-news
-  - term: llm research commentary
-    category_tag: research-thought-leadership
+- term: frontier model release
+  category_tag: model-releases-benchmarks
+- term: ai benchmark results
+  category_tag: model-releases-benchmarks
+- term: ai industry news
+  category_tag: ai-trends-news
+- term: ai regulation and policy
+  category_tag: ai-trends-news
+- term: llm research commentary
+  category_tag: research-thought-leadership
