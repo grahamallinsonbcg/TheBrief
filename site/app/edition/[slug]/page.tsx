@@ -27,6 +27,12 @@ export default async function EditionPage({ params }: EditionPageProps) {
         <EditionNav editions={manifest.editions} currentSlug={edition.slug} />
         <StreamTabs edition={edition} />
       </div>
+      <footer className="mt-12 border-t border-slate-200">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
+          <p className="text-xs text-slate-400">TheBrief · AI Signal Reader</p>
+          <p className="text-xs text-slate-400">{edition.date}</p>
+        </div>
+      </footer>
     </main>
   );
 }

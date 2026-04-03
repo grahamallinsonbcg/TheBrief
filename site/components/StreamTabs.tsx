@@ -21,7 +21,7 @@ export function StreamTabs({ edition }: StreamTabsProps) {
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-wrap gap-2">
+      <div className="flex overflow-x-auto border-b border-slate-200">
         {streams.map(([key, stream]) => {
           const isActive = key === activeKey;
           return (
@@ -29,11 +29,20 @@ export function StreamTabs({ edition }: StreamTabsProps) {
               key={key}
               type="button"
               onClick={() => setActiveKey(key)}
-              className={`rounded-full px-3 py-1 text-sm font-medium ${
-                isActive ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-700"
+              className={`whitespace-nowrap px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors duration-150 ${
+                isActive
+                  ? "border-accent text-accent"
+                  : "border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300"
               }`}
             >
-              {stream.name} ({stream.items.length})
+              {stream.name}
+              <span
+                className={`ml-1.5 inline-flex h-4 min-w-[1rem] items-center justify-center rounded-full px-1 text-[10px] font-semibold ${
+                  isActive ? "bg-accent-light text-accent" : "bg-slate-100 text-slate-500"
+                }`}
+              >
+                {stream.items.length}
+              </span>
             </button>
           );
         })}

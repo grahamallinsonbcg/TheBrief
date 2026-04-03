@@ -38,6 +38,7 @@ def build_edition(
                 "source": item["source"],
                 "date": item["date"],
                 "summary": item["summary"],
+                "signal_score": item.get("signal_score", 0.5),
             }
         )
 

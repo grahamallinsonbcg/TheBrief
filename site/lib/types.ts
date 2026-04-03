@@ -5,6 +5,7 @@ export type BriefItem = {
   source: string;
   date: string;
   summary: string;
+  signal_score?: number;
 };
 
 export type BriefStream = {

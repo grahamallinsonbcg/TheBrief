@@ -41,13 +41,6 @@ items:
     raw_text: "Product release note for voice generation improvements and developer-facing capabilities."
     streams: [ai-tools-products]
 
-  - title: "Simon Willison on context engineering"
-    url: "https://simonwillison.net/2024/Jun/30/context-engineering/"
-    source: "Simon Willison"
-    date: "2026-04-01"
-    raw_text: "Technical analysis of context handling patterns for robust LLM application behavior."
-    streams: [context-data-prep, ai-tools-products]
-
   - title: "Eugene Yan on LLM evaluators"
     url: "https://eugeneyan.com/writing/llm-evaluators/"
     source: "Eugene Yan"

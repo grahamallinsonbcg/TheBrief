@@ -4,9 +4,11 @@ type CommentaryProps = {
 
 export function Commentary({ text }: CommentaryProps) {
   return (
-    <section className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-      <h3 className="text-sm font-semibold text-slate-900">Stream Commentary</h3>
-      <p className="mt-2 text-sm leading-6 text-slate-700">{text}</p>
+    <section className="border-l-4 border-accent-muted bg-accent-light px-4 py-3 rounded-r-lg">
+      <p className="text-xs font-semibold uppercase tracking-wider text-accent mb-1">
+        Stream Analysis
+      </p>
+      <p className="text-sm leading-6 text-slate-700">{text}</p>
     </section>
   );
 }

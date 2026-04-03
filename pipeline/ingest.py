@@ -4,7 +4,7 @@ import hashlib
 import os
 import re
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 from typing import Any
@@ -31,6 +31,14 @@ class Source:
 def _load_yaml(path: str) -> dict[str, Any]:
     with open(path, "r", encoding="utf-8") as file:
         return yaml.safe_load(file) or {}
+
+
+def _is_recent(date_str: str, days: int = 14) -> bool:
+    try:
+        cutoff = datetime.now(timezone.utc).date() - timedelta(days=days)
+        return datetime.fromisoformat(date_str).date() >= cutoff
+    except ValueError:
+        return True
 
 
 def _to_iso_date(value: str | None) -> str:
@@ -270,6 +278,9 @@ def ingest_items(
             )
 
     combined.extend(_ingest_manual_items(manual_picks_path))
+
+    # Filter to recent articles only.
+    combined = [item for item in combined if _is_recent(item["date"])]
 
     # Deduplicate by URL hash while preserving first-seen order.
     deduped: dict[str, dict[str, Any]] = {}
