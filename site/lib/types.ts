@@ -41,6 +41,7 @@ export type SourceSnapshot = {
   trusted_sites: Array<{
     name: string;
     url: string;
+    rss_url?: string;
     domain: string;
     category_tags: string[];
   }>;
