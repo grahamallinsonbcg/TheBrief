@@ -8,8 +8,7 @@ STREAM_LABELS = {
     "model-releases": "Model Releases & Benchmarks",
     "research-papers": "Research Papers",
     "ai-tools-products": "AI Tools & Products",
-    "scaled-ai-use-cases": "Case Studies: Scaled AI Use Cases",
-    "data-analytics-agents": "Data & Analytics Agents",
+    "scaled-ai-use-cases": "Case Studies",
     "context-data-prep": "Context & Data Preparation for AI",
 }
 

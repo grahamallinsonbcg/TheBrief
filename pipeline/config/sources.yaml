@@ -3,7 +3,6 @@ streams:
   - research-papers
   - ai-tools-products
   - scaled-ai-use-cases
-  - data-analytics-agents
   - context-data-prep
 
 sources:
@@ -19,7 +18,7 @@ sources:
   - name: Towards Data Science
     tier: rss
     url: https://towardsdatascience.com/feed
-    streams: [data-analytics-agents, context-data-prep]
+    streams: [context-data-prep]
   - name: Simon Willison Blog
     tier: rss
     url: https://simonwillison.net/atom/everything/
@@ -77,11 +76,11 @@ sources:
   - name: Eugene Yan
     tier: scrape
     url: https://eugeneyan.com/
-    streams: [data-analytics-agents, scaled-ai-use-cases]
+    streams: [scaled-ai-use-cases]
   - name: Chip Huyen
     tier: scrape
     url: https://huyenchip.com/
-    streams: [context-data-prep, data-analytics-agents]
+    streams: [context-data-prep]
 
 manual_sources:
   - name: Karpathy social posts

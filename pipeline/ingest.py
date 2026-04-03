@@ -33,7 +33,7 @@ def _load_yaml(path: str) -> dict[str, Any]:
         return yaml.safe_load(file) or {}
 
 
-def _is_recent(date_str: str, days: int = 14) -> bool:
+def _is_recent(date_str: str, days: int = 7) -> bool:
     try:
         cutoff = datetime.now(timezone.utc).date() - timedelta(days=days)
         return datetime.fromisoformat(date_str).date() >= cutoff

@@ -1,11 +1,11 @@
 {
-  "latest": "2026-04-01-wed",
+  "latest": "2026-04-03-fri",
   "editions": [
     {
-      "slug": "2026-04-01-wed",
-      "date": "2026-04-01",
+      "slug": "2026-04-03-fri",
+      "date": "2026-04-03",
       "type": "edition",
-      "title": "Edition 2"
+      "title": "Weekly Edition"
     }
   ]
 }

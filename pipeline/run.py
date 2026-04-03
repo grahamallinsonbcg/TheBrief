@@ -9,10 +9,7 @@ from ingest import canonicalize_url, ingest_items
 from process import process_items
 
 DAY_TO_NAME = {
-    "mon": "Edition 1",
-    "wed": "Edition 2",
-    "fri": "Edition 3",
-    "sun": "Weekly Wrap-Up",
+    "fri": "Weekly Edition",
 }
 
 
@@ -38,7 +35,7 @@ def _update_manifest(manifest_path: Path, slug: str, day: str, date_value: str) 
     entry = {
         "slug": slug,
         "date": date_value,
-        "type": "weekly-wrap" if day == "sun" else "edition",
+        "type": "edition",
         "title": DAY_TO_NAME[day],
     }
 
@@ -77,7 +74,7 @@ def _load_seen_urls(output_path: Path, current_slug: str) -> set[str]:
 
 
 @click.command()
-@click.option("--day", type=click.Choice(["mon", "wed", "fri", "sun"]), required=True)
+@click.option("--day", type=click.Choice(["fri"]), required=True)
 @click.option(
     "--output-dir",
     default="site/public/editions",
