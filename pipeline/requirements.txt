@@ -5,3 +5,4 @@ feedparser
 firecrawl-py
 pyyaml
 requests
+tavily-python

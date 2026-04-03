@@ -7,14 +7,11 @@ from typing import Any
 
 from anthropic import Anthropic
 
-STREAM_FALLBACK = "ai-tools-products"
+STREAM_FALLBACK = "ai-trends-news"
 STREAM_LABELS = {
-    "model-releases": "Model Releases & Benchmarks",
-    "research-papers": "Research Papers",
-    "ai-tools-products": "AI Tools & Products",
-    "scaled-ai-use-cases": "Case Studies: Scaled AI Use Cases",
-    "data-analytics-agents": "Data & Analytics Agents",
-    "context-data-prep": "Context & Data Preparation for AI",
+    "ai-trends-news": "AI Trends & News",
+    "model-releases-benchmarks": "Model Releases & Benchmarks",
+    "research-thought-leadership": "Research & Thought Leadership",
 }
 
 
@@ -51,13 +48,11 @@ def process_items(
     items: list[dict[str, Any]],
     summarize_prompt_path: str = "pipeline/prompts/summarize.txt",
     commentary_prompt_path: str = "pipeline/prompts/commentary.txt",
-    weekly_prompt_path: str = "pipeline/prompts/weekly_synthesis.txt",
     model: str = "claude-3-5-sonnet-latest",
 ) -> dict[str, Any]:
-    """Generate per-item summaries, per-stream commentary, and optional weekly synthesis."""
+    """Generate per-item summaries and per-stream commentary."""
     summarize_prompt = _read_text(summarize_prompt_path)
     commentary_prompt = _read_text(commentary_prompt_path)
-    weekly_prompt = _read_text(weekly_prompt_path)
 
     api_key = os.getenv("ANTHROPIC_API_KEY")
     client = Anthropic(api_key=api_key) if api_key else None
@@ -77,8 +72,6 @@ def process_items(
                         "role": "user",
                         "content": (
                             f"{summarize_prompt}\n\n"
-                            "Choose stream_tag from: "
-                            f"{', '.join(STREAM_LABELS.keys())}.\n\n"
                             f"TITLE: {item.get('title', '')}\n"
                             f"SOURCE: {item.get('source', '')}\n"
                             f"DATE: {item.get('date', '')}\n"
@@ -117,7 +110,7 @@ def process_items(
     for stream_tag, stream_items in grouped.items():
         if not client:
             stream_commentary[stream_tag] = (
-                f"{STREAM_LABELS[stream_tag]} contains {len(stream_items)} tracked update(s) in this edition."
+                f"{STREAM_LABELS.get(stream_tag, stream_tag)} contains {len(stream_items)} tracked update(s) in this edition."
             )
             continue
 
@@ -138,26 +131,7 @@ def process_items(
         )
         stream_commentary[stream_tag] = _extract_text(response)
 
-    weekly_synthesis = ""
-    if client and processed_items:
-        response = client.messages.create(
-            model=model,
-            max_tokens=600,
-            temperature=0.2,
-            messages=[
-                {
-                    "role": "user",
-                    "content": (
-                        f"{weekly_prompt}\n\n"
-                        f"ITEMS_JSON:\n{json.dumps(processed_items, ensure_ascii=True)}"
-                    ),
-                }
-            ],
-        )
-        weekly_synthesis = _extract_text(response)
-
     return {
         "items": processed_items,
         "stream_commentary": stream_commentary,
-        "weekly_synthesis": weekly_synthesis,
     }
