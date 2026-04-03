@@ -1,0 +1,98 @@
+{
+  "last_updated_utc": "2026-04-03T09:08:20.249778+00:00",
+  "applies_to": "next edition",
+  "note": "Configuration is centrally managed for quality control.",
+  "trusted_sites": [
+    {
+      "name": "OpenAI",
+      "url": "https://openai.com/news",
+      "domain": "openai.com",
+      "category_tags": [
+        "model-releases-benchmarks"
+      ]
+    },
+    {
+      "name": "Anthropic",
+      "url": "https://www.anthropic.com/news",
+      "domain": "www.anthropic.com",
+      "category_tags": [
+        "model-releases-benchmarks",
+        "ai-trends-news"
+      ]
+    },
+    {
+      "name": "Google DeepMind",
+      "url": "https://deepmind.google/discover/blog/",
+      "domain": "deepmind.google",
+      "category_tags": [
+        "model-releases-benchmarks",
+        "research-thought-leadership"
+      ]
+    },
+    {
+      "name": "Hugging Face Blog",
+      "url": "https://huggingface.co/blog",
+      "domain": "huggingface.co",
+      "category_tags": [
+        "model-releases-benchmarks",
+        "ai-trends-news"
+      ]
+    },
+    {
+      "name": "Simon Willison",
+      "url": "https://simonwillison.net/",
+      "domain": "simonwillison.net",
+      "category_tags": [
+        "research-thought-leadership"
+      ]
+    }
+  ],
+  "individuals": [
+    {
+      "name": "Andrej Karpathy",
+      "note": "Research and model commentary",
+      "category_tags": [
+        "research-thought-leadership",
+        "model-releases-benchmarks"
+      ]
+    },
+    {
+      "name": "Ethan Mollick",
+      "note": "Applied AI thought leadership",
+      "category_tags": [
+        "research-thought-leadership",
+        "ai-trends-news"
+      ]
+    },
+    {
+      "name": "Azeem Azhar",
+      "note": "Strategic AI trends and implications",
+      "category_tags": [
+        "ai-trends-news",
+        "research-thought-leadership"
+      ]
+    }
+  ],
+  "search_terms": [
+    {
+      "term": "frontier model release",
+      "category_tag": "model-releases-benchmarks"
+    },
+    {
+      "term": "ai benchmark results",
+      "category_tag": "model-releases-benchmarks"
+    },
+    {
+      "term": "ai industry news",
+      "category_tag": "ai-trends-news"
+    },
+    {
+      "term": "ai regulation and policy",
+      "category_tag": "ai-trends-news"
+    },
+    {
+      "term": "llm research commentary",
+      "category_tag": "research-thought-leadership"
+    }
+  ]
+}

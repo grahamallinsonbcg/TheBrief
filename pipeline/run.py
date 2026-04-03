@@ -10,6 +10,7 @@ import yaml
 from build_edition import build_edition
 from ingest import canonicalize_url, discover_items_with_llm_search, ingest_items
 from process import process_items
+from source_config import sync_source_configs
 
 DAY_TO_NAME = {
     "mon": "Edition 1",
@@ -157,6 +158,7 @@ def main(
     target_items: int,
     max_items: int,
 ) -> None:
+    sources_snapshot = sync_source_configs()
     slug = _slug_for(day)
     date_value = slug[:10]
     output_path = Path(output_dir)
@@ -165,7 +167,18 @@ def main(
     if discovery_days is not None and discovery_days > 0:
         override_start = (datetime.now(timezone.utc).date() - timedelta(days=discovery_days)).isoformat()
         window_start = override_start
-    trusted_domains = _load_trusted_domains()
+    trusted_domains = sorted(
+        {
+            site.get("domain", "").strip().lower()
+            for site in sources_snapshot.get("trusted_sites", [])
+            if isinstance(site, dict) and site.get("domain")
+        }
+    ) or _load_trusted_domains()
+    search_terms = [
+        term.get("term", "").strip()
+        for term in sources_snapshot.get("search_terms", [])
+        if isinstance(term, dict) and term.get("term")
+    ]
     if not os.getenv("FIRECRAWL_API_KEY"):
         print("Warning: FIRECRAWL_API_KEY is not set; scrape discovery will be skipped.")
 
@@ -175,6 +188,7 @@ def main(
         window_start=window_start,
         window_end=window_end,
         trusted_domains=trusted_domains,
+        search_terms=search_terms,
     )
     merged = trusted_items + discovered_items
     within_window = (

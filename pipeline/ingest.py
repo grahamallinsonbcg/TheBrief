@@ -302,6 +302,7 @@ def discover_items_with_llm_search(
     window_start: str,
     window_end: str,
     trusted_domains: list[str],
+    search_terms: list[str] | None = None,
     prompt_path: str = "pipeline/prompts/discovery.txt",
     model: str = "claude-3-5-sonnet-latest",
 ) -> tuple[list[dict[str, Any]], dict[str, int]]:
@@ -325,6 +326,7 @@ def discover_items_with_llm_search(
         f"DATE_WINDOW_START: {window_start}\n"
         f"DATE_WINDOW_END: {window_end}\n"
         f"TRUSTED_SOURCE_DOMAINS: {domain_text}\n"
+        f"SEARCH_TERMS: {', '.join(search_terms or [])}\n"
     )
 
     response = client.messages.create(

@@ -20,6 +20,7 @@ Rules:
 - Only include article-level pages, never homepages/tags/category/archive pages.
 - Only include URLs published within the provided date window.
 - Include broad market coverage beyond trusted sources, but prioritize trusted sources if relevant.
+- Use SEARCH_TERMS as strong guidance for query framing and topic coverage.
 - No duplicates.
 - category_tag must be exactly one allowed value.
 - Include at most 12 items total.

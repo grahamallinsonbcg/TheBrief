@@ -33,3 +33,24 @@ export type EditionManifest = {
   latest: string;
   editions: EditionManifestEntry[];
 };
+
+export type SourceSnapshot = {
+  last_updated_utc: string;
+  applies_to: string;
+  note: string;
+  trusted_sites: Array<{
+    name: string;
+    url: string;
+    domain: string;
+    category_tags: string[];
+  }>;
+  individuals: Array<{
+    name: string;
+    note: string;
+    category_tags: string[];
+  }>;
+  search_terms: Array<{
+    term: string;
+    category_tag: string;
+  }>;
+};

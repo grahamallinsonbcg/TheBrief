@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type HeaderProps = {
   dateLabel?: string;
 };
@@ -12,9 +14,33 @@ export function Header({ dateLabel }: HeaderProps) {
           </p>
           <h1 className="text-2xl font-bold text-slate-900">TheBrief</h1>
         </div>
-        {dateLabel && (
-          <div className="text-sm font-medium text-slate-500">{dateLabel}</div>
-        )}
+        <div className="flex items-center gap-2">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:border-accent hover:text-accent"
+          >
+            Home
+          </Link>
+          <Link
+            href="/archives"
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:border-accent hover:text-accent"
+          >
+            Archives
+          </Link>
+          <Link
+            href="/bookmarks"
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:border-accent hover:text-accent"
+          >
+            Bookmarks
+          </Link>
+          <Link
+            href="/sources"
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:border-accent hover:text-accent"
+          >
+            Sources
+          </Link>
+          {dateLabel && <div className="ml-2 text-sm font-medium text-slate-500">{dateLabel}</div>}
+        </div>
       </div>
     </header>
   );
