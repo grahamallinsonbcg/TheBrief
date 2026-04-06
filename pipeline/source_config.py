@@ -114,6 +114,7 @@ def build_public_snapshot(source_inputs: dict[str, Any]) -> dict[str, Any]:
             {
                 "name": name,
                 "url": url,
+                "rss_url": (site.get("rss_url") or "").strip(),
                 "domain": urlparse(url).netloc.lower(),
                 "category_tags": _normalized_streams(site.get("category_tags")),
             }

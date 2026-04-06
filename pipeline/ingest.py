@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import hashlib
-import json
 import os
 import re
 from dataclasses import dataclass
@@ -13,7 +12,6 @@ from typing import Any
 import feedparser
 import requests
 import yaml
-from anthropic import Anthropic
 from bs4 import BeautifulSoup
 
 try:
@@ -255,88 +253,83 @@ def _ingest_manual_items(path: str) -> list[dict[str, Any]]:
     return normalized
 
 
-def _read_text(path: str) -> str:
-    with open(path, "r", encoding="utf-8") as file:
-        return file.read().strip()
+def discover_items_with_llm_search(
+    *,
+    day: str,
+    window_start: str,
+    window_end: str,
+    trusted_domains: list[str],
+    search_terms: list[str],
+    max_results_per_query: int = 5,
+    max_total: int = 30,
+) -> tuple[list[dict[str, Any]], dict[str, int]]:
+    """Discover items via Tavily web search using configured search terms."""
+    stats: dict[str, int] = {
+        "discovery_raw_count": 0,
+        "discovery_valid_count": 0,
+        "dropped_missing_fields": 0,
+        "dropped_bad_url": 0,
+        "dropped_out_of_window": 0,
+    }
 
+    if not search_terms:
+        print("Web search skipped: no search terms configured")
+        return [], stats
 
-def _ingest_web_search_items(
-    existing_items: list[dict[str, Any]],
-    search_queries_prompt_path: str = "pipeline/prompts/search_queries.txt",
-    max_results_per_query: int = 3,
-    max_total: int = 15,
-) -> list[dict[str, Any]]:
     tavily_key = os.getenv("TAVILY_API_KEY")
-    anthropic_key = os.getenv("ANTHROPIC_API_KEY")
-    if not tavily_key or not anthropic_key:
-        missing = []
-        if not tavily_key:
-            missing.append("TAVILY_API_KEY")
-        if not anthropic_key:
-            missing.append("ANTHROPIC_API_KEY")
-        print(f"Web search skipped: {', '.join(missing)} not set")
-        return []
+    if not tavily_key:
+        print("Web search skipped: TAVILY_API_KEY not set")
+        return [], stats
 
     try:
         from tavily import TavilyClient
     except ImportError:
         print("Web search skipped: tavily-python not installed")
-        return []
+        return [], stats
 
-    # Step 1: generate queries with Claude
-    client = Anthropic(api_key=anthropic_key)
-    prompt = _read_text(search_queries_prompt_path)
-    titles_block = "\n".join(f"- {item['title']}" for item in existing_items[:20])
-    filled_prompt = prompt.replace("{titles}", titles_block)
-
-    try:
-        response = client.messages.create(
-            model="claude-3-5-sonnet-latest",
-            max_tokens=400,
-            temperature=0,
-            messages=[{"role": "user", "content": filled_prompt}],
-        )
-        raw = ""
-        for part in getattr(response, "content", []):
-            text = getattr(part, "text", None)
-            if text:
-                raw += text
-        queries = json.loads(raw.strip())
-    except Exception as exc:
-        print(f"Web search query generation failed: {exc}")
-        return []
-
-    # Step 2: search and collect
     tavily = TavilyClient(api_key=tavily_key)
-    existing_urls = {canonicalize_url(item["url"]) for item in existing_items}
     seen: set[str] = set()
     items: list[dict[str, Any]] = []
 
-    for query in queries[:8]:
-        try:
-            results = tavily.search(query, max_results=max_results_per_query, days=7)
-        except Exception:
-            continue
-        for result in results.get("results", []):
-            url = canonicalize_url(result.get("url", ""))
-            if not url or url in existing_urls or url in seen:
-                continue
-            seen.add(url)
-            items.append(_normalize_item(
-                title=result.get("title", ""),
-                url=url,
-                source="Web Search",
-                date=datetime.now(timezone.utc).date().isoformat(),
-                raw_text=result.get("content", result.get("title", ""))[:3000],
-                streams=["ai-trends-news"],
-            ))
-            if len(items) >= max_total:
-                break
+    for term in search_terms:
         if len(items) >= max_total:
             break
+        try:
+            results = tavily.search(term, max_results=max_results_per_query, days=7)
+        except Exception as exc:
+            print(f"Web search query failed ({term!r}): {exc}")
+            continue
+        for result in results.get("results", []):
+            stats["discovery_raw_count"] += 1
+            title = (result.get("title") or "").strip()
+            raw_url = (result.get("url") or "").strip()
+            if not title or not raw_url:
+                stats["dropped_missing_fields"] += 1
+                continue
+            try:
+                url = canonicalize_url(raw_url)
+            except Exception:
+                stats["dropped_bad_url"] += 1
+                continue
+            if url in seen:
+                continue
+            seen.add(url)
+            items.append(
+                _normalize_item(
+                    title=title,
+                    url=url,
+                    source="Web Search",
+                    date=datetime.now(timezone.utc).date().isoformat(),
+                    raw_text=(result.get("content") or title)[:3000],
+                    streams=["ai-trends-news"],
+                )
+            )
+            stats["discovery_valid_count"] += 1
+            if len(items) >= max_total:
+                break
 
-    print(f"Web search: {len(items)} new items found")
-    return items
+    print(f"Web search: {len(items)} items from {len(search_terms)} search terms")
+    return items, stats
 
 
 def ingest_items(
@@ -344,7 +337,7 @@ def ingest_items(
     manual_picks_path: str = "pipeline/config/manual_picks.yaml",
     max_links_per_scrape_source: int = 8,
 ) -> list[dict[str, Any]]:
-    """Ingest and normalize items from RSS, scrape, manual picks, and LLM web search."""
+    """Ingest and normalize items from RSS, scrape, and manual picks."""
     config = _load_yaml(sources_path)
     source_objects = [Source(**source) for source in config.get("sources", [])]
 
@@ -376,9 +369,6 @@ def ingest_items(
         f"scrape={scrape_count} (firecrawl_key={'set' if firecrawl_api_key else 'missing'}), "
         f"manual={manual_count}"
     )
-
-    # LLM-powered web search (requires TAVILY_API_KEY + ANTHROPIC_API_KEY)
-    combined.extend(_ingest_web_search_items(combined))
 
     # Filter to recent articles only.
     combined = [item for item in combined if _is_recent(item["date"])]
